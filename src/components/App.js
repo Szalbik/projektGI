@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMap from './GoogleMap';
+import GoogleChart from './GoogleChart';
 import './App.css';
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
           containerElement={<div style={{ height: `100vh` }} />}
           mapElement={<div style={{ height: `100%` }} />} 
         />
+          <GoogleChart/>
       </div>
     );
   }
