@@ -14,7 +14,14 @@ class App extends Component {
           {/*containerElement={<div style={{ height: `100vh` }} />}*/}
           {/*mapElement={<div style={{ height: `100%` }} />} */}
         {/*/>*/}
-          <GoogleChart/>
+          <GoogleChart
+              range={{start: "2003", stop: "2016"}}
+              series={[
+                  {"region": "PL-DS", "type": "yield", "value": "zyto", "label": "Żyto DS"},
+                  {"region": "PL-DS", "type": "yield", "value": "zyto", "label": "Żyto DS"},
+                  {"region": "PL-WP", "type": "yield", "value": "zyto", "label": "Żyto WP"}
+                  ]}
+          />
       </div>
     );
   }
