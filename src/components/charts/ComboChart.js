@@ -1,8 +1,8 @@
-import React from "react";
-import {Chart} from 'react-google-charts'
-import YieldsDataLoader from '../utils/YieldsDataLoader';
+import React, { Component } from "react";
+import { Chart } from 'react-google-charts'
+import YieldsDataLoader from '../../utils/YieldsDataLoader';
 
-class MyChartComponent extends React.Component {
+export default class ComboChart extends Component {
 
     constructor(props) {
         super(props);
@@ -11,8 +11,8 @@ class MyChartComponent extends React.Component {
             chartData: [],
             chartSeries: this.prepareSeries(props.series)
         };
-        this.prepareData(props.series, props.range).then(v => {this.setState({chartData: v}); console.log(this.state);});
-        console.log(this.state.chartSeries)
+        this.prepareData(props.series, props.range)
+            .then(v => this.setState({chartData: v}));
     }
 
     async prepareData(series, range){
@@ -22,7 +22,7 @@ class MyChartComponent extends React.Component {
             chartColumns.push({id: s.value, label: s.label, type: "number"})
         });
         let year = range.start;
-        let years = []
+        // let years = []
         for (year; year <= range.stop; year++) {
             let row = {"c":[{v: year, f: null}]};
             series.forEach(async (s,k) => {
@@ -30,7 +30,6 @@ class MyChartComponent extends React.Component {
                     return;
                 }
                 let p = await YieldsDataLoader.single(year,s.value, 'dt/ha',s.region);
-                console.log(p);
                 row.c[k+1] = {v: p, f: null};
                 //p.then(value => row.c.push({v: value, f: null}));
             });
@@ -52,31 +51,27 @@ class MyChartComponent extends React.Component {
 
     render() {
         return (
-            <div style={{display: 'block', maxWidth: "100%"}}>
-                <Chart
-                    width={"100%"}
-                    height={300}
-                    chartType="ComboChart"
-                    loader={<div>Loading Chart</div>}
-                    data={this.state.chartData}
-                    options={{
-                        title: this.props.title,
-                        hAxis: {
-                            title: this.props.axes.hAxisTitle,
-                        },
-                        vAxes: {
-                            0: {title: this.props.axes.vAxis0Title},
-                            1: {title: this.props.axes.vAxis1Title},
-                        },
-                        legend: "bottom",
-                        seriesType: 'bars',
-                        series: this.state.chartSeries,
-                    }}
-                    legendToggle
-                />
-            </div>
+            <Chart
+                width={"100%"}
+                height={300}
+                chartType="ComboChart"
+                loader={<div>Loading Chart</div>}
+                data={this.state.chartData}
+                options={{
+                    title: this.props.title,
+                    hAxis: {
+                        title: this.props.axes.hAxisTitle,
+                    },
+                    vAxes: {
+                        0: {title: this.props.axes.vAxis0Title},
+                        1: {title: this.props.axes.vAxis1Title},
+                    },
+                    legend: "bottom",
+                    seriesType: 'bars',
+                    series: this.state.chartSeries,
+                }}
+                legendToggle
+            />
         )
     }
 }
-
-export default MyChartComponent

@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
-import GoogleMap from './GoogleMap';
-import GoogleComboChart from './GoogleComboChart';
-import GoogleGeoChart from './GoogleGeoChart';
+import React, { Component } from 'react';
+import ComboChart from './charts/ComboChart';
+import Map from './Map';
 import './App.css';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <GoogleGeoChart/>
-                <GoogleComboChart
+                <Map />
+                <ComboChart
                     title={"Wielkość plonów w stosunku do opadów"}
                     range={{start: "2003", stop: "2016"}}
                     axes={{

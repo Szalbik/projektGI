@@ -1,14 +1,13 @@
 import React from "react";
-import {Chart} from 'react-google-charts'
+import { Chart } from 'react-google-charts'
 import * as d3  from 'd3';
 
-class MyChartComponent extends React.Component {
+export default class Map extends React.Component {
     render() {
         return (
             <div style={{display: 'block', maxWidth: "100%"}}>
                 <Chart
                     chartType="GeoChart"
-
                     data={[
                         ['Województwo', 'Wielkość plonów',"Opady"],
                         ['PL-DS', 200, 100],
@@ -16,10 +15,9 @@ class MyChartComponent extends React.Component {
                         ['PL-LU', 400, 150],
                         ['PL-LB', 500, 120],
                     ]}
-
                     options={{
-                        colorAxis: {colors: ['#00853f', 'yellow', '#e31b23']},
-                        chartArea: {width: '30%'},
+                        colorAxis: { colors: ['#00853f', 'yellow', '#e31b23'] },
+                        chartArea: { width: '30%' },
                         region: "PL",
                         displayMode: 'regions',
                         resolution: 'provinces',
@@ -30,11 +28,8 @@ class MyChartComponent extends React.Component {
                             }
                         }
                     }}
-
                 />
             </div>
         )
     }
 }
-
-export default MyChartComponent
