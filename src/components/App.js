@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import ComboChart from './charts/ComboChart';
 import Map from './Map';
+import MeteoDataLoader from '../utils/MeteoDataLoader';
 import './App.css';
 
 class App extends Component {
     render() {
+        MeteoDataLoader.avgOf('rainfall', '2003').then(res => console.log(res)); 
         return (
             <div className="App">
                 <Map />

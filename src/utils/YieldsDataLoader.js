@@ -1,6 +1,5 @@
 import * as d3  from 'd3';
 
-
 const regionsMap = {
     "PL-DS": {rowNumber: 1, name: "dolnośląskie"},
     "PL-KP": {rowNumber: 2, name: "kujawsko-pomorskie"},
@@ -20,8 +19,7 @@ const regionsMap = {
     "PL-ZP": {rowNumber: 16, name: "zachodniopomorskie"},
 };
 
-class YieldsDataLoader{
-
+class YieldsDataLoader {
     static data = [];
 
     static async single(year, yieldName, columnName, region) {
@@ -42,8 +40,6 @@ class YieldsDataLoader{
         this.data[yieldName][year] = parsedData;
         return parsedData;
     }
-
-
 }
 
 export default YieldsDataLoader

@@ -6,7 +6,6 @@ export default class ComboChart extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             chartData: [],
             chartSeries: this.prepareSeries(props.series)
@@ -35,7 +34,6 @@ export default class ComboChart extends Component {
             });
             chartRows[year - range.start] = row;
         }
-        console.log({cols: chartColumns, rows: chartRows});
         return {cols: chartColumns, rows: chartRows};
     }
 

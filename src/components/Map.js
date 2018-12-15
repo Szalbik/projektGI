@@ -1,6 +1,5 @@
 import React from "react";
 import { Chart } from 'react-google-charts'
-import * as d3  from 'd3';
 
 export default class Map extends React.Component {
     render() {
