@@ -1,26 +1,6 @@
 import React from "react";
 import {Chart} from 'react-google-charts'
-import * as d3  from 'd3';
-
-
-const regionsMap = {
-    "PL-DS": {rowNumber: 1, name: "dolnośląskie"},
-    "PL-KP": {rowNumber: 2, name: "kujawsko-pomorskie"},
-    "PL-LU": {rowNumber: 3, name: "lubelskie"},
-    "PL-LB": {rowNumber: 4, name: "lubuskie"},
-    "PL-LD": {rowNumber: 5, name: "łódzkie"},
-    "PL-MA": {rowNumber: 6, name: "małopolskie"},
-    "PL-MZ": {rowNumber: 7, name: "mazowieckie"},
-    "PL-OP": {rowNumber: 5, name: "opolskie"},
-    "PL-PK": {rowNumber: 9, name: "podkarpackie"},
-    "PL-PD": {rowNumber: 10, name: "podlaskie"},
-    "PL-PM": {rowNumber: 11, name: "pomorskie"},
-    "PL-SL": {rowNumber: 12, name: "śląskie"},
-    "PL-SK": {rowNumber: 13, name: "świętokrzyskie"},
-    "PL-WN": {rowNumber: 14, name: "warmińsko-mazurskie"},
-    "PL-WP": {rowNumber: 15, name: "wielkopolskie"},
-    "PL-ZP": {rowNumber: 16, name: "zachodniopomorskie"},
-};
+import YieldsDataLoader from '../utils/YieldsDataLoader';
 
 class MyChartComponent extends React.Component {
 
@@ -28,37 +8,36 @@ class MyChartComponent extends React.Component {
         super(props);
         console.log(props)
         this.state = {
-            chartData: this.prepareData(props.series, props.range),
+            chartData: [],
             chartSeries: this.prepareSeries(props.series)
         };
+        this.prepareData(props.series, props.range).then(v => {this.setState({chartData: v}); console.log(this.state);});
         console.log(this.state.chartSeries)
     }
 
-    prepareData(series, range){
+    async prepareData(series, range){
         let chartColumns = [{"id":"year","label":"Rok","pattern":"","type":"string"},];
         let chartRows = [];
         series.forEach(s => {
             chartColumns.push({id: s.value, label: s.label, type: "number"})
         });
-        let i = range.start;
-        for (i; i <= range.stop; i++) {
-            let row = {"c":[{v: i, f: null}]};
-            series.forEach(s => {
+        let year = range.start;
+        let years = []
+        for (year; year <= range.stop; year++) {
+            let row = {"c":[{v: year, f: null}]};
+            series.forEach(async (s,k) => {
                 if(s.id === "year"){
                     return;
                 }
-                let p = this.loadData(i,s.value, 'dt/ha',s.region);
-                p.then(value => row.c.push({v: value, f: null}));
+                let p = await YieldsDataLoader.single(year,s.value, 'dt/ha',s.region);
+                console.log(p);
+                row.c[k+1] = {v: p, f: null};
+                //p.then(value => row.c.push({v: value, f: null}));
             });
-            chartRows.push(row);
+            chartRows[year - range.start] = row;
         }
+        console.log({cols: chartColumns, rows: chartRows});
         return {cols: chartColumns, rows: chartRows};
-    }
-
-    async loadData(year, what, columnName,region) {
-        let parsedData = [];
-        await d3.csv('data/yields/' + year + "_" + what + ".csv", data => parsedData.push(data))
-        return parseFloat(parsedData[regionsMap[region].rowNumber][columnName].replace(/\s/g, ''));
     }
 
     prepareSeries(series){
