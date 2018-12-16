@@ -17,7 +17,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Map />
-                <ChartsGroup regions={['PL-DS', 'PL-WP']}/>
+                <ChartsGroup regions={['PL-DS', 'PL-WP', 'PL-KP', 'PL-PM']}/>
             </div>
         );
     }

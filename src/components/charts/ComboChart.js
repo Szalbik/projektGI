@@ -10,9 +10,15 @@ export default class ComboChart extends Component {
             chartData: [],
             chartSeries: this.prepareSeries(props.series)
         };
+        this.prepareData(this.props.series, this.props.range)
+            .then(v => this.setState({chartData: v}));
+    }
+
+    componentWillReceiveProps(props){
         this.prepareData(props.series, props.range)
             .then(v => this.setState({chartData: v}));
     }
+
 
     async prepareData(series, range){
         let chartColumns = [{"id":"year","label":"Rok","pattern":"","type":"string"},];
@@ -50,7 +56,7 @@ export default class ComboChart extends Component {
         return (
             <Chart
                 width={"100%"}
-                height={300}
+                height={"100%"}
                 chartType="ComboChart"
                 loader={<div>Loading Chart</div>}
                 data={this.state.chartData}
@@ -60,7 +66,10 @@ export default class ComboChart extends Component {
                         title: this.props.axes.hAxisTitle,
                     },
                     vAxes: {
-                        0: {title: this.props.axes.vAxis0Title},
+                        0: {
+                            title: this.props.axes.vAxis0Title,
+                            viewWindow: this.props.axes.vAxis0ViewWindow
+                        },
                         1: {title: this.props.axes.vAxis1Title},
                     },
                     legend: "bottom",
