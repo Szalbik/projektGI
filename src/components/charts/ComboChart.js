@@ -30,7 +30,6 @@ export default class ComboChart extends Component {
                 }
                 let p = await YieldsDataLoader.single(year,s.value, 'dt/ha',s.region);
                 row.c[k+1] = {v: p, f: null};
-                //p.then(value => row.c.push({v: value, f: null}));
             });
             chartRows[year - range.start] = row;
         }
