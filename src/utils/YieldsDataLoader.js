@@ -40,6 +40,15 @@ class YieldsDataLoader {
         this.data[yieldName][year] = parsedData;
         return parsedData;
     }
+
+    static async avgOf(yieldName, columnName, region, yearStart, yearStop) {
+        let sum = 0;
+        let year = yearStart
+        for (year; year <= yearStop; year++) {
+            sum += parseFloat(await this.single(year, yieldName, columnName, region));
+        }
+        return sum / (yearStop - yearStart + 1);
+    }
 }
 
 export default YieldsDataLoader
