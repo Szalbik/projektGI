@@ -2,67 +2,109 @@ import React, {Component} from "react";
 import ComboChart from './charts/ComboChart';
 
 const yieldsTypes = [
-    {name: 'buraki_cukrowe', label: "Buraki cukrowe"},
     {name: 'gryka', label: "Gryka"},
-    {name: 'jeczmien', label: "Jeczmien"},
+    {name: 'jeczmien', label: "Jęczmien"},
     {name: 'kukurydza_na_ziarno', label: "Kukurydza na ziarno"},
     {name: 'owies', label: "Owies"},
     {name: 'proso', label: "Proso"},
     {name: 'pszenica', label: "Pszenica"},
+    {name: 'zyto', label: "Żyto"},
     {name: 'pszenzyto', label: "Pszenżyto"},
     {name: 'rzepak_i_rzepik', label: "Rzepak i rzepik"},
     {name: 'ziemniaki', label: "Ziemniaki"},
-    {name: 'zyto', label: "Żyto"}
+    {name: 'buraki_cukrowe', label: "Buraki cukrowe"}
 ];
 
 
 export default class ChartsGroup extends Component {
 
+    bigChart = null;
+
     constructor(props) {
         super(props);
+        this.state = {
+            'yield': yieldsTypes[0],
+            'meteo': {name: 'temp', label: 'Temperatura'}
+        }
     }
 
-    render() {
-        let view = [];
-        yieldsTypes.forEach(y => {
-            let series = []
+    prepareSmallCharts() {
+        let smallCharts = [];
+        yieldsTypes.forEach((y, k) => {
+            let series = [];
             this.props.regions.forEach(r => {
-                series.push({"region": r, "type": "yield", "value": y.name, "label": r })
+                series.push({"region": r, "type": "yield", "value": y.name, "label": r})
             });
-            view.push(<div className={"w33"}>
+            let max = 80;
+            if (y.name === 'ziemniaki' || y.name === 'buraki_cukrowe') {
+                max = 800;
+            }
+            smallCharts.push(
+                <div className={"small-chart"}>
+                    <label>
+                        <ComboChart
+                            title={y.label}
+                            range={{start: "2003", stop: "2016"}}
+                            axes={{
+                                hAxisTitle: "Rok",
+                                vAxis0Title: "Wielkość plonów w dt/ha",
+                                vAxis1Title: "Wielkość opadów w ml",
+                                vAxis0ViewWindow: {max: max, min: 0},
+                            }}
+                            series={series}
+                        />
+                        <input type={"radio"} name={"yield"} value={k} onChange={this.setYield.bind(this)} checked={this.state.yield.name === yieldsTypes[k].name}/>
+                    </label>
+                </div>
+            )
+        });
+        return smallCharts;
+    }
+
+    setYield(event){
+        let id = event.target.value;
+        let y = yieldsTypes[id];
+        console.log(y);
+        this.setState({yield: y});
+        console.log(this.bigChart);
+    }
+
+    prepareBigChart() {
+        let series = [];
+        this.props.regions.forEach(r => {
+            series.push({
+                "region": r,
+                "type": "yield",
+                "value": this.state.yield.name,
+                "label": r + " " + this.state.yield.label
+            });
+            //series.push({"region": r, "type": "meteo", "value": this.state.meteo.name, "label": r + " " + this.state.meteo.label });
+        });
+        this.bigChart = (
+            <div className={"big-chart"}>
                 <ComboChart
-                    title={y.label}
+                    title={this.state.yield.label + " / " + this.state.meteo.label}
                     range={{start: "2003", stop: "2016"}}
                     axes={{
                         hAxisTitle: "Rok",
-                        vAxis0Title: "Wielkość plonów w dt",
+                        vAxis0Title: "Wielkość plonów w dt/ha",
                         vAxis1Title: "Wielkość opadów w ml",
                     }}
                     series={series}
                 />
-            </div>)
-        });
+            </div>
+        )
+        return (<div className={"big-chart"}>
+            {this.bigChart}
+        </div>)
+    }
+
+    render() {
+
         return (
             <div className={"charts-group"}>
-                <div className={"w100"}>
-                    <ComboChart
-                        title={"Wielkość plonów w stosunku do opadów"}
-                        range={{start: "2003", stop: "2016"}}
-                        axes={{
-                            hAxisTitle: "Rok",
-                            vAxis0Title: "Wielkość plonów w dt",
-                            vAxis1Title: "Wielkość opadów w ml",
-                        }}
-                        series={[
-                            {"region": "PL-DS", "type": "yield", "value": "zyto", "label": "Żyto DS"},
-                            {"region": "PL-DS", "type": "yield", "value": "proso", "label": "Proso DS"},
-                            {"region": "PL-WP", "type": "meteo", "value": "zyto", "label": "Żyto WP"}
-                        ]}
-                    />
-                </div>
-                {view}
-
-
+                {this.prepareBigChart()}
+                {this.prepareSmallCharts()}
             </div>
         )
     }
