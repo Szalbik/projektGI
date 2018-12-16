@@ -1,3 +1,16 @@
 .App {
   height: 100%;
 }
+
+.charts-group{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.w100{
+  flex: 0 0 100%;
+}
+
+.w33{
+  flex: 0 0 33%;
+}
