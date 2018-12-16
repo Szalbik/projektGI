@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import _ from "lodash";
 
 const regionsMap = {
   "PL-DS": {
@@ -106,20 +105,9 @@ export default class MeteoDataLoader {
   static pickedData = [];
 
   static async avgOf(type = "rainfall", year, region = null, from = 8, to = 9) {
-    //   this.loadedData = await d3.csv(`data/meteo/${year}.csv`, function(row) {
-    //     const dateArray = row.data.split('-');
-    //    return {
-    //     date: new Date(dateArray[0], dateArray[1] - 1, dateArray[2]),
-    //     temp: +row.temp,
-    //     humidity: +row.humidity,
-    //     rainfall: +row.rainfall
-    //   }
-    // })
-
     if (type === "rainfall") {
       this.loadedMeteoData = await d3.csv(`data/meteo/o_m_${year}.csv`, row => {
         if (row.Nazwa_stacji === regionsMap[region].stationMeteo) {
-          // console.log(row);
           return {
             Kod_stacji: +row["Kod_stacji"],
             Nazwa_stacji: row["Nazwa_stacji"],
@@ -133,7 +121,6 @@ export default class MeteoDataLoader {
       this.loadedClimaticData = await d3.csv(
         `data/meteo/k_m_t_${year}.csv`,
         row => {
-          // console.log(row);
           if (row.Nazwa_stacji === regionsMap[region].stationClimatic) {
             return {
               Kod_stacji: +row["Kod_stacji"],
@@ -152,39 +139,34 @@ export default class MeteoDataLoader {
       );
     }
 
-    // if (row.Nazwa_stacji === regionsMap[region].stationMeteo) {
-    //   console.log(row);
-    // }
+    let result = 0;
 
-    if (type === "rainfall") {
+    if (type === "humidity") {
       for (let index = from; index <= to; index++) {
-        const row = this.loadedMeteoData.find(row => {
-          return row.Miesiąc === index;
-        });
+        const row = this.loadedClimaticData.find(row =>  row.Miesiąc === index);
         this.pickedData.push(row);
       }
-      // console.log(this.pickedData);
-    } else {
+      let sum = this.pickedData.reduce((a, b) =>  a + b.Średnia_miesięczna_wilgotność_względna, 0)
+
+      result = sum / this.pickedData.length
+    } else if (type === 'temp') {
       for (let index = from; index <= to; index++) {
-        const row = this.loadedClimaticData.find(row => {
-          return row.Miesiąc === index;
-        });
+        const row = this.loadedClimaticData.find(row => row.Miesiąc === index );
         this.pickedData.push(row);
       }
-      // console.log(this.pickedData);
+      let sum = this.pickedData.reduce((a, b) => a + b.Średnia_miesięczna_temperatura, 0);
+
+      result = sum / this.pickedData.length
+    } else if(type === 'rainfall') {
+      for (let index = from; index <= to; index++) {
+        const row = this.loadedMeteoData.find(row => row.Miesiąc === index);
+        this.pickedData.push(row);
+      }      
+      let sum = this.pickedData.reduce((a, b) => a + b.Miesięczna_suma_opadów, 0)
+
+      result = sum / this.pickedData.length;
     }
 
-    return this.pickedData;
-
-    // console.log(this.loadedMeteoData);
-    // let licznik = 0;
-    // let sum = await this.loadedData.reduce((a, b) => {
-    //   if (b.date.getMonth() >= from && b.date.getMonth() <= to) {
-    //     licznik++;
-    //     return (a + b[type])
-    //   }
-    //   return a + 0;
-    // }, 0)
-    // return  (sum / licznik);
+    return result;
   }
 }
