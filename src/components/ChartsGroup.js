@@ -138,7 +138,7 @@ export default class ChartsGroup extends Component {
         return (
             <div className={"charts-group"}>
                 {this.prepareBigChart()}
-                {/*{this.prepareMeteoCharts()}*/}
+                {this.prepareMeteoCharts()}
                 {this.prepareYieldsCharts()}
             </div>
         )
