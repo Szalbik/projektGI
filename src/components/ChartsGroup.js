@@ -15,6 +15,12 @@ const yieldsTypes = [
     {name: 'buraki_cukrowe', label: "Buraki cukrowe"}
 ];
 
+const meteoTypes = [
+    {name: 'rainfall', label: "Opday deszczu", axisLabel: "Wielkość opadów w ml"},
+    // {name: 'humidity', label: "Wilgotność powietrza", axisLabel: "Wilgotność powietrza w "},
+    {name: 'temp', label: "Temperatura powietrza", axisLabel: "Temperatura powietrza w °C"},
+];
+
 
 export default class ChartsGroup extends Component {
 
@@ -28,7 +34,35 @@ export default class ChartsGroup extends Component {
         }
     }
 
-    prepareSmallCharts() {
+    prepareMeteoCharts() {
+        let smallCharts = [];
+        meteoTypes.forEach((y, k) => {
+            let series = [];
+            this.props.regions.forEach(r => {
+                series.push({"region": r, "type": "meteo", "value": y.name, "label": r + " " + y.label})
+            });
+            smallCharts.push(
+                <div className={"small-chart"}>
+                    <label>
+                        <ComboChart
+                            title={y.label}
+                            range={{start: "2003", stop: "2016"}}
+                            axes={{
+                                hAxisTitle: "Rok",
+                                vAxis0Title: "Wielkość plonów w dt/ha",
+                                vAxis1Title: y.axisLabel,
+                            }}
+                            series={series}
+                        />
+                        <input type={"radio"} name={"yield"} value={k} onChange={this.setYield.bind(this)} checked={this.state.yield.name === yieldsTypes[k].name}/>
+                    </label>
+                </div>
+            )
+        });
+        return smallCharts;
+    }
+
+    prepareYieldsCharts() {
         let smallCharts = [];
         yieldsTypes.forEach((y, k) => {
             let series = [];
@@ -104,7 +138,8 @@ export default class ChartsGroup extends Component {
         return (
             <div className={"charts-group"}>
                 {this.prepareBigChart()}
-                {this.prepareSmallCharts()}
+                {/*{this.prepareMeteoCharts()}*/}
+                {this.prepareYieldsCharts()}
             </div>
         )
     }
