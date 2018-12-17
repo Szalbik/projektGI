@@ -100,11 +100,13 @@ const regionsMap = {
 };
 
 export default class MeteoDataLoader {
-  static loadedMeteoData = [];
-  static loadedClimaticData = [];
-  static pickedData = [];
+  constructor() {
+    this.loadedMeteoData = [];
+    this.loadedClimaticData = [];
+    this.pickedData = [];
+  }
 
-  static async avgOf(type = "rainfall", year, region = null, from = 8, to = 9) {
+  async avgOf(type = "rainfall", year, region = null, from = 8, to = 9) {
     if (type === "rainfall") {
       this.loadedMeteoData = await d3.csv(`data/meteo/o_m_${year}.csv`, row => {
         if (row.Nazwa_stacji === regionsMap[region].stationMeteo) {

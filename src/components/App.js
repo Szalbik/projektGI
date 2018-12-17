@@ -6,9 +6,13 @@ import './App.css';
 
 class App extends Component {
     render() {
-        MeteoDataLoader.avgOf('rainfall', '2003', 'PL-DS', 3, 10).then(res => console.log(res)); 
-        // MeteoDataLoader.avgOf('temp', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
-        // MeteoDataLoader.avgOf('humidity', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
+        new MeteoDataLoader().avgOf('rainfall', '2003', 'PL-DS', 3, 10).then(res => console.log(res)); 
+        new MeteoDataLoader().avgOf('temp', '2003', 'PL-WP', 5, 8).then(res => console.log(res)); 
+        new MeteoDataLoader().avgOf('temp', '2003', 'PL-WP', 5, 8).then(res => console.log(res)); 
+        new MeteoDataLoader().avgOf('temp', '2003', 'PL-WP', 5, 8).then(res => console.log(res)); 
+        new MeteoDataLoader().avgOf('humidity', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
+        new MeteoDataLoader().avgOf('humidity', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
+        new MeteoDataLoader().avgOf('humidity', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
         return (
             <div className="App">
                 <Map />
