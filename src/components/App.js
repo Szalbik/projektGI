@@ -6,17 +6,21 @@ import './App.css';
 
 class App extends Component {
     render() {
-        MeteoDataLoader.loadData();
-        // new MeteoDataLoader().avgOf('rainfall', '2003', 'PL-DS', 3, 10).then(res => console.log(res)); 
-        // new MeteoDataLoader().avgOf('temp', '2003', 'PL-WP', 5, 8).then(res => console.log(res)); 
-        // new MeteoDataLoader().avgOf('temp', '2003', 'PL-WP', 5, 8).then(res => console.log(res)); 
-        // new MeteoDataLoader().avgOf('temp', '2003', 'PL-WP', 5, 8).then(res => console.log(res)); 
-        // new MeteoDataLoader().avgOf('humidity', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
-        // new MeteoDataLoader().avgOf('humidity', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
-        // new MeteoDataLoader().avgOf('humidity', '2003', 'PL-DS', 5, 8).then(res => console.log(res)); 
+        MeteoDataLoader.loadData().then(() => {
+            new MeteoDataLoader().avgOf()
+            new MeteoDataLoader().avgOf('temp', 2003, 'PL-WP', 5, 8)
+            new MeteoDataLoader().avgOf('temp', 2004, 'PL-WP', 5, 8)
+            new MeteoDataLoader().avgOf('temp', 2007, 'PL-WP', 5, 8)
+            new MeteoDataLoader().avgOf('rainfall', 2016, 'PL-DS', 5, 8)
+            new MeteoDataLoader().avgOf('humidity', 2011, 'PL-DS', 5, 8)
+            console.log(new MeteoDataLoader().avgOf('rainfall', 2013, 'PL-DS', 5, 8))
+        })
+
+        
         return (
             <div className="App">
                 <Map />
+                <button onClick={() => new MeteoDataLoader().avgOf()}>check avg</button>
                 <ComboChart
                     title={"Wielkość plonów w stosunku do opadów"}
                     range={{start: "2003", stop: "2016"}}
