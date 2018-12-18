@@ -7,9 +7,12 @@
     "csv": "^5.0.1",
     "d3": "^5.7.0",
     "fast-csv": "^2.4.1",
+    "fusioncharts": "^3.13.3",
+    "fusionmaps": "^3.13.1-sr.1",
     "lodash": "^4.17.11",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-fusioncharts": "^2.0.7",
     "react-google-charts": "^3.0.10",
     "react-google-maps": "^9.4.5",
     "react-scripts": "2.1.1"
