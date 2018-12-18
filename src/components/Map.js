@@ -79,15 +79,25 @@ const chartConfigs = {
 }
 // Step 8 - Creating the DOM element to pass the react-fusioncharts component 
 class Map extends React.Component {
+    state = {
+        regions: []
+    }
+
+    toggleRegion = (event, args) => {
+        const { regions } = this.state;
+        if (regions.includes(args.shortLabel)) {
+            let newRegions = regions.filter(region => region !== args.shortLabel)
+            this.setState({regions: newRegions})
+        } else {
+            this.setState({regions: [...this.state.regions, args.shortLabel]})
+        }
+    }
+
   render() {
      return (
      <ReactFC
         {...chartConfigs}
-        events={{
-            entityClick: function (event, args) {
-                console.log(args.label, 'clicked');
-            }}
-        }
+        fcEvent-entityClick={this.toggleRegion}
         />
      );
   }
