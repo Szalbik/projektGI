@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import ComboChart from './charts/ComboChart';
 import Map from './Map';
 import MeteoDataLoader from '../utils/MeteoDataLoader';
@@ -45,22 +44,22 @@ class App extends Component {
                 },
                 // Source data as JSON --> id represents regions of Poland.
                 "data": [
-                    { "id": "74", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LD" }, 
-                    { "id": "72", "value": Math.random()*1000, "label": "Dolnośląskie", "shortLabel": "DS" }, 
-                    { "id": "73", "value": Math.random()*1000, "label": "Kujawsko-Pomorskie", "shortLabel": "KP" }, 
-                    { "id": "75", "value": Math.random()*1000, "label": "Lubelskie", "shortLabel": "LU" }, 
-                    { "id": "76", "value": Math.random()*1000, "label": "Lubuskie", "shortLabel": "LB" }, 
-                    { "id": "78", "value": Math.random()*1000, "label": "Mazowieckie", "shortLabel": "MZ" }, 
-                    { "id": "77", "value": Math.random()*1000, "label": "Małopolskie", "shortLabel": "MA" }, 
-                    { "id": "79", "value": Math.random()*1000, "label": "Opolskie", "shortLabel": "OP" }, 
-                    { "id": "80", "value": Math.random()*1000, "label": "Podkarpackie", "shortLabel": "PK" }, 
-                    { "id": "81", "value": Math.random()*1000, "label": "Podlaskie", "shortLabel": "PD" }, 
-                    { "id": "82", "value": Math.random()*1000, "label": "Pomorskie", "shortLabel": "PM" }, 
-                    { "id": "85", "value": Math.random()*1000, "label": "Warmińsko-Mazurskie", "shortLabel": "WN" }, 
-                    { "id": "86", "value": Math.random()*1000, "label": "Wielkopolskie", "shortLabel": "WP" }, 
-                    { "id": "87", "value": Math.random()*1000, "label": "Zachodniopomorskie", "shortLabel": "ZP", color: 'black' }, 
-                    { "id": "83", "value": Math.random()*1000, "label": "Śląskie", "shortLabel": "SL" }, 
-                    { "id": "84", "value": Math.random()*1000, "label": "Świętokrzyskie", "shortLabel": "SK" }, 
+                    { "id": "74", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LD" },
+                    { "id": "72", "value": Math.random()*1000, "label": "Dolnośląskie", "shortLabel": "DS" },
+                    { "id": "73", "value": Math.random()*1000, "label": "Kujawsko-Pomorskie", "shortLabel": "KP" },
+                    { "id": "75", "value": Math.random()*1000, "label": "Lubelskie", "shortLabel": "LU" },
+                    { "id": "76", "value": Math.random()*1000, "label": "Lubuskie", "shortLabel": "LB" },
+                    { "id": "78", "value": Math.random()*1000, "label": "Mazowieckie", "shortLabel": "MZ" },
+                    { "id": "77", "value": Math.random()*1000, "label": "Małopolskie", "shortLabel": "MA" },
+                    { "id": "79", "value": Math.random()*1000, "label": "Opolskie", "shortLabel": "OP" },
+                    { "id": "80", "value": Math.random()*1000, "label": "Podkarpackie", "shortLabel": "PK" },
+                    { "id": "81", "value": Math.random()*1000, "label": "Podlaskie", "shortLabel": "PD" },
+                    { "id": "82", "value": Math.random()*1000, "label": "Pomorskie", "shortLabel": "PM" },
+                    { "id": "85", "value": Math.random()*1000, "label": "Warmińsko-Mazurskie", "shortLabel": "WN" },
+                    { "id": "86", "value": Math.random()*1000, "label": "Wielkopolskie", "shortLabel": "WP" },
+                    { "id": "87", "value": Math.random()*1000, "label": "Zachodniopomorskie", "shortLabel": "ZP", color: 'black' },
+                    { "id": "83", "value": Math.random()*1000, "label": "Śląskie", "shortLabel": "SL" },
+                    { "id": "84", "value": Math.random()*1000, "label": "Świętokrzyskie", "shortLabel": "SK" },
                 ]
             }
         },
@@ -85,7 +84,7 @@ class App extends Component {
         } else {
             this.setState({ configCharts: { ...configCharts, dataSource: { ...dataSource, data: [...newData, { ...row, color: "black" } ] }  } })
         }
-        
+
         if (regions.includes(args.shortLabel)) {
             let newRegions = regions.filter(region => region !== args.shortLabel)
             this.setState({regions: newRegions})
@@ -95,26 +94,17 @@ class App extends Component {
     }
 
     render() {
-        const { meteoLoaded } = this.state;
-        return (
-            <div className="App">
-                <Map chartConfigs={this.state.configCharts} toggleRegion={this.toggleRegion} />
-                {meteoLoaded && <ComboChart
-                    title={"Wielkość plonów w stosunku do opadów"}
-                    range={{start: "2003", stop: "2016"}}
-                    axes={{
-                        hAxisTitle: "Rok",
-                        vAxis0Title: "Wielkość plonów w dt",
-                        vAxis1Title: "Wielkość opadów w ml",
-                    }}
-                    series={[
-                        {"region": "PL-DS", "type": "yield", "value": "zyto", "label": "Żyto DS"},
-                        {"region": "PL-DS", "type": "yield", "value": "proso", "label": "Proso DS"},
-                        {"region": "PL-WP", "type": "meteo", "value": "zyto", "label": "Żyto WP"}
-                    ]}
-                />}
-            </div>
-        );
+        if(this.state.meteoLoaded) {
+            return (
+                <div className="App">
+                    <Map chartConfigs={this.state.configCharts} toggleRegion={this.toggleRegion} />
+                    <ChartsGroup regions={['PL-DS', 'PL-WP', 'PL-KP', 'PL-PM']}/>
+                </div>
+            );
+        }
+        else {
+            return (<div>Loading data ...</div>)
+        }
     }
 }
 
