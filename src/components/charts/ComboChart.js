@@ -18,6 +18,7 @@ export default class ComboChart extends Component {
     componentWillReceiveProps(props) {
         this.prepareData(props.series, props.range)
             .then(v => this.setState({chartData: v}));
+        this.setState({chartSeries: this.prepareSeries(props.series)});
     }
 
 
@@ -38,7 +39,7 @@ export default class ComboChart extends Component {
                 let p;
                 if (s.type === 'meteo') {
                     console.log(s.value + ", " + year + ", " + s.region);
-                    p = await new MeteoDataLoader().avgOf(s.value, year, s.region);
+                    p = await new MeteoDataLoader().avgOf(s.value, year, s.region, 3, 9);
                     console.log(p);
                 }
                 else if (s.type === 'yield') {
@@ -79,7 +80,9 @@ export default class ComboChart extends Component {
                             title: this.props.axes.vAxis0Title,
                             viewWindow: this.props.axes.vAxis0ViewWindow
                         },
-                        1: {title: this.props.axes.vAxis1Title},
+                        1: {title: this.props.axes.vAxis1Title,
+                            viewWindow: this.props.axes.vAxis1ViewWindow
+                        },
                     },
                     legend: "bottom",
                     seriesType: 'bars',

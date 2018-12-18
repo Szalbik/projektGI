@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import ComboChart from './charts/ComboChart';
+import ChartsGroup from './ChartsGroup';
 import Map from './Map';
 import MeteoDataLoader from '../utils/MeteoDataLoader';
 import './App.css';
+import YieldsDataLoader from "../utils/YieldsDataLoader";
 
 class App extends Component {
     state = {
         meteoLoaded: false,
+        yieldsLoaded: false,
         configCharts: {
             type: 'maps/poland',
             width: '800',
@@ -63,11 +65,12 @@ class App extends Component {
                 ]
             }
         },
-        regions: []
+        regions: ['PL-WP', 'PL-DS']
     }
 
     componentDidMount() {
         MeteoDataLoader.loadData().then(() => this.setState({ meteoLoaded: true }))
+        YieldsDataLoader.loadData().then(() => this.setState({ yieldsLoaded: true }))
     }
 
     toggleRegion = (event, args) => {
@@ -93,12 +96,17 @@ class App extends Component {
         }
     }
 
+    addRegion(){
+        this.setState({regions: [...this.state.regions, 'PL-PM']})
+    }
+
     render() {
-        if(this.state.meteoLoaded) {
+        if(this.state.meteoLoaded && this.state.yieldsLoaded) {
             return (
                 <div className="App">
                     <Map chartConfigs={this.state.configCharts} toggleRegion={this.toggleRegion} />
-                    <ChartsGroup regions={['PL-DS', 'PL-WP', 'PL-KP', 'PL-PM']}/>
+                    <button onClick={this.addRegion.bind(this)}>click here to add region</button>
+                    <ChartsGroup regions={this.state.regions}/>
                 </div>
             );
         }

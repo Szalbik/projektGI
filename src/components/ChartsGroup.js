@@ -29,9 +29,14 @@ export default class ChartsGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            refresh: true,
             'yield': yieldsTypes[0],
             'meteo': {name: 'temp', label: 'Temperatura'}
         }
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({refresh: !this.state.refresh});
     }
 
     prepareMeteoCharts() {
@@ -39,7 +44,7 @@ export default class ChartsGroup extends Component {
         meteoTypes.forEach((y, k) => {
             let series = [];
             this.props.regions.forEach(r => {
-                series.push({"region": r, "type": "meteo", "value": y.name, "label": r + " " + y.label})
+                series.push({"region": r, "type": "meteo", "value": y.name, "label": r})
             });
             smallCharts.push(
                 <div className={"small-chart"}>
@@ -54,7 +59,8 @@ export default class ChartsGroup extends Component {
                             }}
                             series={series}
                         />
-                        <input type={"radio"} name={"yield"} value={k} onChange={this.setYield.bind(this)} checked={this.state.yield.name === yieldsTypes[k].name}/>
+                        <input type={"radio"} name={"meteo"} value={k} onChange={this.setMeteo.bind(this)}
+                               checked={this.state.meteo.name === meteoTypes[k].name}/>
                     </label>
                 </div>
             )
@@ -87,7 +93,8 @@ export default class ChartsGroup extends Component {
                             }}
                             series={series}
                         />
-                        <input type={"radio"} name={"yield"} value={k} onChange={this.setYield.bind(this)} checked={this.state.yield.name === yieldsTypes[k].name}/>
+                        <input type={"radio"} name={"yield"} value={k} onChange={this.setYield.bind(this)}
+                               checked={this.state.yield.name === yieldsTypes[k].name}/>
                     </label>
                 </div>
             )
@@ -95,12 +102,16 @@ export default class ChartsGroup extends Component {
         return smallCharts;
     }
 
-    setYield(event){
+    setYield(event) {
         let id = event.target.value;
         let y = yieldsTypes[id];
-        console.log(y);
         this.setState({yield: y});
-        console.log(this.bigChart);
+    }
+
+    setMeteo(event) {
+        let id = event.target.value;
+        let y = meteoTypes[id];
+        this.setState({meteo: y});
     }
 
     prepareBigChart() {
@@ -110,9 +121,14 @@ export default class ChartsGroup extends Component {
                 "region": r,
                 "type": "yield",
                 "value": this.state.yield.name,
-                "label": r + " " + this.state.yield.label
+                "label": r
             });
-            //series.push({"region": r, "type": "meteo", "value": this.state.meteo.name, "label": r + " " + this.state.meteo.label });
+            series.push({
+                "region": r,
+                "type": "meteo",
+                "value": this.state.meteo.name,
+                "label": r
+            });
         });
         this.bigChart = (
             <div className={"big-chart"}>
@@ -123,6 +139,7 @@ export default class ChartsGroup extends Component {
                         hAxisTitle: "Rok",
                         vAxis0Title: "Wielkość plonów w dt/ha",
                         vAxis1Title: "Wielkość opadów w ml",
+                        vAxis1ViewWindow: {min: 0},
                     }}
                     series={series}
                 />

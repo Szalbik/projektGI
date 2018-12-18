@@ -58,22 +58,22 @@ const chartConfigs = {
         },
         // Source data as JSON --> id represents countries of world.
         "data": [
-            { "id": "74", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LD" }, 
-            { "id": "72", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "DS" }, 
-            { "id": "73", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "KP" }, 
-            { "id": "75", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LU" }, 
-            { "id": "76", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LB" }, 
-            { "id": "77", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "MZ" }, 
-            { "id": "78", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "MA" }, 
-            { "id": "79", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "OP" }, 
-            { "id": "80", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PK" }, 
-            { "id": "81", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PD" }, 
-            { "id": "82", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PM" }, 
-            { "id": "83", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "WN" }, 
-            { "id": "84", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "WP" }, 
-            { "id": "85", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "ZP" }, 
-            { "id": "86", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "SL" }, 
-            { "id": "87", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "SK" }, 
+            { "id": "74", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-LD" },
+            { "id": "72", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-DS" },
+            { "id": "73", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-KP" },
+            { "id": "75", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-LU" },
+            { "id": "76", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-LB" },
+            { "id": "77", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-MZ" },
+            { "id": "78", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-MA" },
+            { "id": "79", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-OP" },
+            { "id": "80", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-PK" },
+            { "id": "81", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-PD" },
+            { "id": "82", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-PM" },
+            { "id": "83", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-WN" },
+            { "id": "84", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-WP" },
+            { "id": "85", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-ZP" },
+            { "id": "86", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-SL" },
+            { "id": "87", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PL-SK" },
         ]
     }
 }
@@ -89,7 +89,7 @@ class Map extends React.Component {
             let newRegions = regions.filter(region => region !== args.shortLabel)
             this.setState({regions: newRegions})
         } else {
-            this.setState({regions: [...this.state.regions, args.shortLabel]}).then(()=>console.log(this.state))
+            this.setState({regions: [...this.state.regions, args.shortLabel]})
         }
     }
 
