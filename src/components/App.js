@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ComboChart from './charts/ComboChart';
 import Map from './Map';
 import MeteoDataLoader from '../utils/MeteoDataLoader';
+import YieldsDataLoader from '../utils/YieldsDataLoader.1';
 import './App.css';
 
 class App extends Component {
