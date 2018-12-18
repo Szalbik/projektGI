@@ -27,11 +27,11 @@ class YieldsDataLoader {
         if(typeof this.data[yieldName] !== 'undefined' && typeof this.data[yieldName][year] !== 'undefined'){
             return this.data[yieldName][year][regionRow][columnName].replace(/\s/g, '').replace(/,/g, '.');
         }
-        await this.loadData(year,yieldName);
+        await this.loadSingleFile(year,yieldName);
         return this.data[yieldName][year][regionRow][columnName].replace(/\s/g, '').replace(/,/g, '.');
     }
 
-    static async loadData(year, yieldName){
+    static async loadSingleFile(year, yieldName){
         let parsedData = [];
         await d3.csv('data/yields/' + year + "_" + yieldName + ".csv", data => parsedData.push(data));
         if(typeof this.data[yieldName] === 'undefined'){
@@ -48,6 +48,16 @@ class YieldsDataLoader {
             sum += parseFloat(await this.single(year, yieldName, columnName, region));
         }
         return sum / (yearStop - yearStart + 1);
+    }
+
+    static async loadData(){
+        let yieldsTypes = ['gryka', 'jeczmien', 'kukurydza_na_ziarno', 'owies','proso', 'pszenica', 'zyto', 'pszenzyto', 'rzepak_i_rzepik', 'ziemniaki', 'buraki_cukrowe'];
+        yieldsTypes.forEach(y => {
+            let year = 2003;
+            for(year; year <= 2016; year++){
+                this.loadSingleFile(year, y);
+            }
+        })
     }
 }
 

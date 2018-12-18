@@ -14,12 +14,17 @@ class App extends Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                <Map />
-                <ChartsGroup regions={['PL-DS', 'PL-WP', 'PL-KP', 'PL-PM']}/>
-            </div>
-        );
+        if(this.state.meteoLoaded) {
+            return (
+                <div className="App">
+                    <Map/>
+                    <ChartsGroup regions={['PL-DS', 'PL-WP', 'PL-KP', 'PL-PM']}/>
+                </div>
+            );
+        }
+        else {
+            return (<div>Loading data ...</div>)
+        }
     }
 }
 

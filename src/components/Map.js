@@ -89,7 +89,7 @@ class Map extends React.Component {
             let newRegions = regions.filter(region => region !== args.shortLabel)
             this.setState({regions: newRegions})
         } else {
-            this.setState({regions: [...this.state.regions, args.shortLabel]})
+            this.setState({regions: [...this.state.regions, args.shortLabel]}).then(()=>console.log(this.state))
         }
     }
 

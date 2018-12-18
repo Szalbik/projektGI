@@ -9,7 +9,7 @@ export default class ComboChart extends Component {
         super(props);
         this.state = {
             chartData: [],
-            chartSeries: this.prepareSeries(props.series)
+            chartSeries: this.prepareSeries(props.series),
         };
         this.prepareData(this.props.series, this.props.range)
             .then(v => this.setState({chartData: v}));

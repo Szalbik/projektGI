@@ -17,7 +17,7 @@ const yieldsTypes = [
 
 const meteoTypes = [
     {name: 'rainfall', label: "Opday deszczu", axisLabel: "Wielkość opadów w ml"},
-    // {name: 'humidity', label: "Wilgotność powietrza", axisLabel: "Wilgotność powietrza w "},
+    {name: 'humidity', label: "Wilgotność powietrza", axisLabel: "Wilgotność powietrza w "},
     {name: 'temp', label: "Temperatura powietrza", axisLabel: "Temperatura powietrza w °C"},
 ];
 
