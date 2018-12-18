@@ -95,10 +95,11 @@ class App extends Component {
     }
 
     render() {
+        const { meteoLoaded } = this.state;
         return (
             <div className="App">
                 <Map chartConfigs={this.state.configCharts} toggleRegion={this.toggleRegion} />
-                <ComboChart
+                {meteoLoaded && <ComboChart
                     title={"Wielkość plonów w stosunku do opadów"}
                     range={{start: "2003", stop: "2016"}}
                     axes={{
@@ -111,7 +112,7 @@ class App extends Component {
                         {"region": "PL-DS", "type": "yield", "value": "proso", "label": "Proso DS"},
                         {"region": "PL-WP", "type": "meteo", "value": "zyto", "label": "Żyto WP"}
                     ]}
-                />
+                />}
             </div>
         );
     }
