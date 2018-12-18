@@ -31,7 +31,7 @@ const chartConfigs = {
         "chart": {
                 "caption": "Average Yield in Poland",
                 "subcaption": " 2003-2016",
-                "numbersuffix": "%",
+                "numbersuffix": "",
                 "includevalueinlabels": "1",
                 "labelsepchar": ": ",
                 "entityFillHoverColor": "#FFF9C4",
@@ -44,44 +44,37 @@ const chartConfigs = {
             "gradient": "1",
             "color": [{
                 "minvalue": "0.5",
-                "maxvalue": "1.0",
+                "maxvalue": "300",
                 "color": "#FFD74D"
             }, {
-                "minvalue": "1.0",
-                "maxvalue": "2.0",
+                "minvalue": "300",
+                "maxvalue": "700",
                 "color": "#FB8C00"
             }, {
-                "minvalue": "2.0",
-                "maxvalue": "3.0",
+                "minvalue": "700",
+                "maxvalue": "1000",
                 "color": "#E65100"
             }]
         },
         // Source data as JSON --> id represents countries of world.
-        "data": [{
-            "id": "NA",
-            "value": ".82",
-            "showLabel": "1"
-        }, {
-            "id": "SA",
-            "value": "2.04",
-            "showLabel": "1"
-        }, {
-            "id": "AS",
-            "value": "1.78",
-            "showLabel": "1"
-        }, {
-            "id": "EU",
-            "value": ".40",
-            "showLabel": "1"
-        }, {
-            "id": "AF",
-            "value": "2.58",
-            "showLabel": "1"
-        }, {
-            "id": "AU",
-            "value": "1.30",
-            "showLabel": "1"
-        }]
+        "data": [
+            { "id": "74", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LD" }, 
+            { "id": "72", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "DS" }, 
+            { "id": "73", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "KP" }, 
+            { "id": "75", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LU" }, 
+            { "id": "76", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LB" }, 
+            { "id": "77", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "MZ" }, 
+            { "id": "78", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "MA" }, 
+            { "id": "79", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "OP" }, 
+            { "id": "80", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PK" }, 
+            { "id": "81", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PD" }, 
+            { "id": "82", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "PM" }, 
+            { "id": "83", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "WN" }, 
+            { "id": "84", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "WP" }, 
+            { "id": "85", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "ZP" }, 
+            { "id": "86", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "SL" }, 
+            { "id": "87", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "SK" }, 
+        ]
     }
 }
 // Step 8 - Creating the DOM element to pass the react-fusioncharts component 
@@ -92,7 +85,7 @@ class Map extends React.Component {
         {...chartConfigs}
         events={{
             entityClick: function (event, args) {
-                console.log(args.label + 'clicked');
+                console.log(args.label, 'clicked');
             }}
         }
         />
