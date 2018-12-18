@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import ChartsGroup from './ChartsGroup';
 import Map from './Map';
 import MeteoDataLoader from '../utils/MeteoDataLoader';
+<<<<<<< HEAD
 import YieldsDataLoader from '../utils/YieldsDataLoader';
+=======
+import YieldsDataLoader from '../utils/YieldsDataLoader.1';
+>>>>>>> develop
 import './App.css';
 
 class App extends Component {
