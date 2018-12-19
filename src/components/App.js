@@ -97,15 +97,15 @@ class App extends Component {
     }
 
     render() {
-        if(this.state.meteoLoaded && this.state.yieldsLoaded) {
+        const { meteoLoaded, yieldsLoaded, regions, configCharts } = this.state;
+        if(meteoLoaded && yieldsLoaded) {
             return (
                 <div className="App">
-                    <Map chartConfigs={this.state.configCharts} toggleRegion={this.toggleRegion} />
-                    <ChartsGroup regions={this.state.regions}/>
+                    <Map chartConfigs={configCharts} toggleRegion={this.toggleRegion} />
+                    {regions.length !== 0 && <ChartsGroup regions={regions}/>}
                 </div>
             );
-        }
-        else {
+        }  else {
             return (<div>Loading data ...</div>)
         }
     }
