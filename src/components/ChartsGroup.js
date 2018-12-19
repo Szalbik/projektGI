@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import ComboChart from './charts/ComboChart';
+import Regions from '../utils/Regions';
 
 const yieldsTypes = [
     {name: 'gryka', label: "Gryka"},
@@ -16,8 +17,8 @@ const yieldsTypes = [
 ];
 
 const meteoTypes = [
-    {name: 'rainfall', label: "Opday deszczu", axisLabel: "Wielkość opadów w ml"},
-    {name: 'humidity', label: "Wilgotność powietrza", axisLabel: "Wilgotność powietrza w "},
+    {name: 'rainfall', label: "Opday deszczu", axisLabel: "Wielkość opadów w mm"},
+    {name: 'humidity', label: "Średnia wilgotność względna", axisLabel: "Średnia wilgotność względna w %"},
     {name: 'temp', label: "Temperatura powietrza", axisLabel: "Temperatura powietrza w °C"},
 ];
 
@@ -31,7 +32,7 @@ export default class ChartsGroup extends Component {
         this.state = {
             refresh: true,
             'yield': yieldsTypes[0],
-            'meteo': {name: 'temp', label: 'Temperatura'}
+            'meteo': meteoTypes[0]
         }
     }
 
@@ -44,7 +45,7 @@ export default class ChartsGroup extends Component {
         meteoTypes.forEach((y, k) => {
             let series = [];
             this.props.regions.forEach(r => {
-                series.push({"region": r, "type": "meteo", "value": y.name, "label": r})
+                series.push({"region": r, "type": "meteo", "value": y.name, "label": Regions[r].shortName})
             });
             smallCharts.push(
                 <div className={"small-chart"} key={y.label}>
@@ -73,7 +74,7 @@ export default class ChartsGroup extends Component {
         yieldsTypes.forEach((y, k) => {
             let series = [];
             this.props.regions.forEach(r => {
-                series.push({"region": r, "type": "yield", "value": y.name, "label": r})
+                series.push({"region": r, "type": "yield", "value": y.name, "label":  Regions[r].shortName})
             });
             let max = 80;
             if (y.name === 'ziemniaki' || y.name === 'buraki_cukrowe') {
@@ -121,13 +122,13 @@ export default class ChartsGroup extends Component {
                 "region": r,
                 "type": "yield",
                 "value": this.state.yield.name,
-                "label": r
+                "label": Regions[r].shortName
             });
             series.push({
                 "region": r,
                 "type": "meteo",
                 "value": this.state.meteo.name,
-                "label": r
+                "label": Regions[r].shortName
             });
         });
         this.bigChart = (
@@ -138,7 +139,7 @@ export default class ChartsGroup extends Component {
                     axes={{
                         hAxisTitle: "Rok",
                         vAxis0Title: "Wielkość plonów w dt/ha",
-                        vAxis1Title: "Wielkość opadów w ml",
+                        vAxis1Title: this.state.meteo.axisLabel,
                         vAxis1ViewWindow: {min: 0},
                     }}
                     series={series}
