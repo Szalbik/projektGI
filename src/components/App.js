@@ -102,6 +102,7 @@ class App extends Component {
     render() {
         const { meteoLoaded, yieldsLoaded, regions, configCharts } = this.state;
         if(meteoLoaded && yieldsLoaded) {
+            console.log(YieldsDataLoader.avgOf('all','dt/ha','PL-WP'));
             return (
                 <div className="App">
                     <Map chartConfigs={configCharts} toggleRegion={this.toggleRegion} />

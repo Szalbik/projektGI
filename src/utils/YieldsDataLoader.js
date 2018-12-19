@@ -21,14 +21,14 @@ const regionsMap = {
 
 class YieldsDataLoader {
     static data = [];
+    static yieldsTypes = ['gryka', 'jeczmien', 'kukurydza_na_ziarno', 'owies','proso', 'pszenica', 'zyto', 'pszenzyto', 'rzepak_i_rzepik', 'ziemniaki', 'buraki_cukrowe'];
 
-    static async single(year, yieldName, columnName, region) {
+    static single(year, yieldName, columnName, region) {
         let regionRow = regionsMap[region].rowNumber;
         if(typeof this.data[yieldName] !== 'undefined' && typeof this.data[yieldName][year] !== 'undefined'){
             return this.data[yieldName][year][regionRow][columnName].replace(/\s/g, '').replace(/,/g, '.');
         }
-        await this.loadSingleFile(year,yieldName);
-        return this.data[yieldName][year][regionRow][columnName].replace(/\s/g, '').replace(/,/g, '.');
+        return null;
     }
 
     static async loadSingleFile(year, yieldName){
@@ -41,18 +41,38 @@ class YieldsDataLoader {
         return parsedData;
     }
 
-    static async avgOf(yieldName, columnName, region, yearStart, yearStop) {
+    /**
+     *
+     * @param yieldName (yieldName='all' return avg for all yields)
+     * @param columnName
+     * @param region
+     * @param yearStart
+     * @param yearStop
+     * @returns {number}
+     */
+    static avgOf(yieldName, columnName, region, yearStart=2003, yearStop=2016) {
         let sum = 0;
-        let year = yearStart
-        for (year; year <= yearStop; year++) {
-            sum += parseFloat(await this.single(year, yieldName, columnName, region));
+        let year = yearStart;
+        if(yieldName === 'all'){
+            let counter = 0;
+            this.yieldsTypes.forEach(yieldName => {
+                for (year; year <= yearStop; year++) {
+                    counter++;
+                    sum += parseFloat(this.single(year, yieldName, columnName, region));
+                }
+            });
+            return sum / counter;
+        }
+        else {
+            for (year; year <= yearStop; year++) {
+                sum += parseFloat(this.single(year, yieldName, columnName, region));
+            }
         }
         return sum / (yearStop - yearStart + 1);
     }
 
     static async loadData(){
-        let yieldsTypes = ['gryka', 'jeczmien', 'kukurydza_na_ziarno', 'owies','proso', 'pszenica', 'zyto', 'pszenzyto', 'rzepak_i_rzepik', 'ziemniaki', 'buraki_cukrowe'];
-        yieldsTypes.forEach(y => {
+        this.yieldsTypes.forEach(y => {
             let year = 2003;
             for(year; year <= 2016; year++){
                 this.loadSingleFile(year, y);
