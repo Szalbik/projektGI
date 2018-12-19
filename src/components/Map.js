@@ -96,8 +96,8 @@ class Map extends React.Component {
   render() {
      return (
      <ReactFC
-        {...chartConfigs}
-        fcEvent-entityClick={this.toggleRegion}
+        {...this.props.chartConfigs}
+        fcEvent-entityClick={this.props.toggleRegion}
         />
      );
   }

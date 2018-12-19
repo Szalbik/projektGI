@@ -47,7 +47,7 @@ class App extends Component {
                 // Source data as JSON --> id represents regions of Poland.
                 "data": [
                     { "id": "74", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LD" },
-                    { "id": "72", "value": Math.random()*1000, "label": "Dolnośląskie", "shortLabel": "DS" },
+                    { "id": "72", "value": Math.random()*1000, "label": "Dolnośląskie", "shortLabel": "DS", color: 'black' },
                     { "id": "73", "value": Math.random()*1000, "label": "Kujawsko-Pomorskie", "shortLabel": "KP" },
                     { "id": "75", "value": Math.random()*1000, "label": "Lubelskie", "shortLabel": "LU" },
                     { "id": "76", "value": Math.random()*1000, "label": "Lubuskie", "shortLabel": "LB" },
@@ -58,8 +58,8 @@ class App extends Component {
                     { "id": "81", "value": Math.random()*1000, "label": "Podlaskie", "shortLabel": "PD" },
                     { "id": "82", "value": Math.random()*1000, "label": "Pomorskie", "shortLabel": "PM" },
                     { "id": "85", "value": Math.random()*1000, "label": "Warmińsko-Mazurskie", "shortLabel": "WN" },
-                    { "id": "86", "value": Math.random()*1000, "label": "Wielkopolskie", "shortLabel": "WP" },
-                    { "id": "87", "value": Math.random()*1000, "label": "Zachodniopomorskie", "shortLabel": "ZP", color: 'black' },
+                    { "id": "86", "value": Math.random()*1000, "label": "Wielkopolskie", "shortLabel": "WP", color: 'black' },
+                    { "id": "87", "value": Math.random()*1000, "label": "Zachodniopomorskie", "shortLabel": "ZP" },
                     { "id": "83", "value": Math.random()*1000, "label": "Śląskie", "shortLabel": "SL" },
                     { "id": "84", "value": Math.random()*1000, "label": "Świętokrzyskie", "shortLabel": "SK" },
                 ]
@@ -81,23 +81,19 @@ class App extends Component {
         const { data } = this.state.configCharts.dataSource;
         const newData = data.filter(elem => elem.shortLabel !== args.shortLabel)
         let row = data.find(elem => elem.shortLabel === args.shortLabel)
-        if (regions.includes(args.shortLabel)) {
+        if (regions.includes("PL-"+args.shortLabel)) {
             delete row['color']
             this.setState({ configCharts: { ...configCharts, dataSource: { ...dataSource, data: [...newData, { ...row } ] }  } })
         } else {
             this.setState({ configCharts: { ...configCharts, dataSource: { ...dataSource, data: [...newData, { ...row, color: "black" } ] }  } })
         }
 
-        if (regions.includes(args.shortLabel)) {
-            let newRegions = regions.filter(region => region !== args.shortLabel)
+        if (regions.includes("PL-"+args.shortLabel)) {
+            let newRegions = regions.filter(region => region !== "PL-"+args.shortLabel)
             this.setState({regions: newRegions})
         } else {
-            this.setState({regions: [...this.state.regions, args.shortLabel]})
+            this.setState({regions: [...this.state.regions, "PL-"+args.shortLabel]})
         }
-    }
-
-    addRegion(){
-        this.setState({regions: [...this.state.regions, 'PL-PM']})
     }
 
     render() {
@@ -105,7 +101,6 @@ class App extends Component {
             return (
                 <div className="App">
                     <Map chartConfigs={this.state.configCharts} toggleRegion={this.toggleRegion} />
-                    <button onClick={this.addRegion.bind(this)}>click here to add region</button>
                     <ChartsGroup regions={this.state.regions}/>
                 </div>
             );
