@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Chart} from 'react-google-charts'
 import YieldsDataLoader from '../../utils/YieldsDataLoader';
 import MeteoDataLoader from '../../utils/MeteoDataLoader';
+import Regions from '../../utils/Regions';
 
 export default class ComboChart extends Component {
 
