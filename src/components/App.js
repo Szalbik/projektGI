@@ -65,12 +65,15 @@ class App extends Component {
                 ]
             }
         },
-        regions: ['PL-WP', 'PL-DS']
+        regions: ['PL-WP', 'PL-DS'],
     }
 
     componentDidMount() {
         MeteoDataLoader.loadData().then(() => this.setState({ meteoLoaded: true }))
-        YieldsDataLoader.loadData().then(() => this.setState({ yieldsLoaded: true }))
+        YieldsDataLoader.loadData().then((res) => {
+            this.setState({ yieldsLoaded: true })
+            console.log(res);
+        })
     }
 
     toggleRegion = (event, args) => {

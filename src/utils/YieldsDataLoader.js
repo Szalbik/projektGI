@@ -58,6 +58,7 @@ class YieldsDataLoader {
                 this.loadSingleFile(year, y);
             }
         })
+        return this.data;
     }
 }
 

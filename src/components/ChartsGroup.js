@@ -47,7 +47,7 @@ export default class ChartsGroup extends Component {
                 series.push({"region": r, "type": "meteo", "value": y.name, "label": r})
             });
             smallCharts.push(
-                <div className={"small-chart"}>
+                <div className={"small-chart"} key={y.label}>
                     <label>
                         <ComboChart
                             title={y.label}
@@ -80,7 +80,7 @@ export default class ChartsGroup extends Component {
                 max = 800;
             }
             smallCharts.push(
-                <div className={"small-chart"}>
+            <div className={"small-chart"} key={y.name}>
                     <label>
                         <ComboChart
                             title={y.label}
