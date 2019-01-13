@@ -248,13 +248,24 @@ class App extends Component {
                 let i = 0;
                 for(var r in Regions){
                     items[i] = {
-                        "id": r,
+                        "id": r + "_rainfall",
                         "shapeid": "we-anchor",
                         "x": Regions[r].x,
                         "y": Regions[r].y,
-                        "label": r,
+                        "label":  r + "_rainfall",
                         "value": "3",
-                        "tooltext": r,
+                        "tooltext":"",
+                        "labelpos": "bottom"
+                    };
+                    i++;
+                    items[i] = {
+                        "id": r + "_temp",
+                        "shapeid": "aws-anchor",
+                        "x": Regions[r].x,
+                        "y": Regions[r].y + 15,
+                        "label":  r + "_temp",
+                        "value": "3",
+                        "tooltext": "",//new MeteoDataLoader().avgOf("temp", 2003, r),
                         "labelpos": "bottom"
                     };
                     i++;
