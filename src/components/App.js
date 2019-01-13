@@ -87,7 +87,7 @@ class App extends Component {
   pickDropByAvg = avg => {
     let result = "drop1";
 
-    if (avg >= 55) {
+    if (avg >= 55 && avg < 65) {
       result = "drop2";
     } else if (avg >= 65) {
       result = "drop3";
