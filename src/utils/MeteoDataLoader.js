@@ -128,16 +128,18 @@ export default class MeteoDataLoader {
 
     if (Object.keys(MeteoDataLoader.data).length === 0) {
       MeteoDataLoader.loadData().then(() => {
-        if (typeof year === "number") {
+        if (typeof year === 'string') {
+          averageAll();
+        } else {
           average();
         }
-        averageAll();
       });
     } else {
-      if (typeof year === "number") {
+      if (typeof year === 'string') {
+        averageAll();
+      } else {
         average();
       }
-      averageAll();
     }
 
     return result;

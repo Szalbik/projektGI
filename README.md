@@ -19,10 +19,11 @@
 
 ## General info
 
-It allow to compare how much yields was harvested in reference to previous years.
+It allow to compare how much yields was harvested in reference to previous years and visualize meteo and yields charts on map.
 
 ## Technologies
 
+- Javascript ES6 / ES7
 - react - ![](https://img.shields.io/npm/v/react.svg?style=plastic)
 - react-fusioncharts - ![](https://img.shields.io/npm/v/react-fusioncharts.svg)
 - react-google-charts - ![](https://img.shields.io/npm/v/react-google-charts.svg?style=plastic)
@@ -46,10 +47,7 @@ List of features ready and TODOs for future development
 - Show geo map depends on real yields data
 - Display each yield in separate chart
 - Display combined data in one big chart
-
-To-do list:
-
-- Add icons to map depends on how much railfall was in year
+- Add icons to map depends on how much railfall and temperature was in previous years
 
 ## Status
 

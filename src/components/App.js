@@ -35,11 +35,6 @@ class App extends Component {
         });
         let i = 0;
         for (var r in Regions) {
-          console.log(
-            "Opady:",
-            new MeteoDataLoader().avgOf("rainfall", "all", r, 3, 9)
-          );
-
           items[i] = {
             id: r + "_rainfall",
             shapeid: this.pickDropByAvg(
