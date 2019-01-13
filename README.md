@@ -20,7 +20,7 @@
 
 ## General info
 
-It allow to compare how much yields was harvested in reference to previous years and visualize meteo and yields charts on map.
+It allow to compare how much crops was harvested in reference to previous years and visualize meteo and crops charts on map.
 
 ## Technologies
 
@@ -45,10 +45,10 @@ npm start / yarn start
 
 List of features ready and TODOs for future development
 
-- Show geo map depends on real yields data
-- Display each yield in separate chart
+- Show geo map depends on real crops data
+- Display each crop in separate chart
 - Display combined data in one big chart
-- Add icons to map depends on how much railfall and temperature was in previous years
+- Add icons to map dependently on quantity of rain and temperature in previous years
 
 ## Status
 
@@ -64,5 +64,5 @@ Created by [@Damian Szalbierz](https://github.com/Szalbik) and [@Wojciech Bełka
 
 ## Acknowledge
 
-- [Yields data source](https://gis.gov.pl)
+- [Crops data source](https://gis.gov.pl)
 - [Meteo data source](https://dane.imgw.pl/)
