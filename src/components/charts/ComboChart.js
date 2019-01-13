@@ -31,16 +31,16 @@ export default class ComboChart extends Component {
         // let years = []
         for (year; year <= range.stop; year++) {
             let row = {"c": [{v: year, f: null}]};
-            series.forEach(async (s, k) => {
+            series.forEach((s, k) => {
                 if (s.id === "year") {
                     return;
                 }
                 let p;
                 if (s.type === 'meteo') {
-                    p = await new MeteoDataLoader().avgOf(s.value, year, s.region, 3, 9);
+                    p = new MeteoDataLoader().avgOf(s.value, year, s.region, 3, 9);
                 }
                 else if (s.type === 'yield') {
-                    p = await YieldsDataLoader.single(year, s.value, 'dt/ha', s.region);
+                    p = YieldsDataLoader.single(year, s.value, 'dt/ha', s.region);
                 }
                 row.c[k + 1] = {v: p, f: null};
             });
