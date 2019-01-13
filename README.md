@@ -23,7 +23,12 @@ It allow to compare how much yields was harvested in reference to previous years
 
 ## Technologies
 
-- react - version ![](https://img.shields.io/npm/v/react.svg?style=plastic)
+- react - ![](https://img.shields.io/npm/v/react.svg?style=plastic)
+- react-fusioncharts - ![](https://img.shields.io/npm/v/react-fusioncharts.svg)
+- react-google-charts - ![](https://img.shields.io/npm/v/react-google-charts.svg?style=plastic)
+- csv - ![](https://img.shields.io/npm/v/csv.svg)
+- d3 - ![](https://img.shields.io/npm/v/d3.svg)
+- lodash - ![](https://img.shields.io/npm/v/lodash.svg)
 
 ## Setup
 
