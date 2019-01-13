@@ -35,12 +35,13 @@ class App extends Component {
         });
         let i = 0;
         for (var r in Regions) {
+          console.log(new MeteoDataLoader().avgOf("rainfall", "all", r, 3, 9));
           items[i] = {
             id: r + "_rainfall",
             shapeid: this.pickDropByAvg(
               new MeteoDataLoader().avgOf("rainfall", "all", r, 3, 9)
             ),
-            x: Regions[r].x,
+            x: Regions[r].x + 5,
             y: Regions[r].y - 5,
             label: r + "_rainfall",
             value: "",
@@ -53,7 +54,7 @@ class App extends Component {
             shapeid: this.pickSunByAvg(
               new MeteoDataLoader().avgOf("temp", "all", r, 3, 9)
             ),
-            x: Regions[r].x,
+            x: Regions[r].x + 5,
             y: Regions[r].y + 20,
             label: r + "_temp",
             value: "",
@@ -84,7 +85,7 @@ class App extends Component {
   };
 
   pickDropByAvg = avg => {
-    let result = "drop3";
+    let result = "drop1";
 
     if (avg >= 55) {
       result = "drop2";

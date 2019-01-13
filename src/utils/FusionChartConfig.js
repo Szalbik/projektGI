@@ -13,7 +13,7 @@ export default {
   dataSource: {
     // Map Configuration
     chart: {
-      caption: "Average Yield in Poland",
+      caption: "Średnie zbiory plonów w Polsce",
       subcaption: " 2003-2016",
       numbersuffix: "",
       includevalueinlabels: "1",
@@ -38,7 +38,7 @@ export default {
             {
               id: "cs1",
               type: "text",
-              text: "Over 9°C",
+              text: "Ponad 9°C",
               x: "60",
               y: "365",
               color: "000000",
@@ -56,7 +56,7 @@ export default {
               align: "left",
               y: "515",
               color: "000000",
-              text: "Over 45 [mm]"
+              text: "Ponad 45 [mm]"
             },
             {
               id: "cs2",
@@ -84,7 +84,7 @@ export default {
             {
               id: "cs3",
               type: "text",
-              text: "Over 11.5°C",
+              text: "Ponad 11.5°C",
               x: "80",
               y: "315",
               color: "000000",
@@ -102,7 +102,7 @@ export default {
               align: "left",
               y: "465",
               color: "000000",
-              text: "Over 55 [mm]"
+              text: "Ponad 55 [mm]"
             },
             {
               id: "cs4",
@@ -130,7 +130,7 @@ export default {
             {
               id: "cs5",
               type: "text",
-              text: "Over 13°C",
+              text: "Ponad 13°C",
               x: "100",
               y: "265",
               color: "000000",
@@ -148,7 +148,7 @@ export default {
               align: "left",
               y: "415",
               color: "000000",
-              text: "Over 65 [mm]"
+              text: "Ponad 65 [mm]"
             },
             {
               id: "cs6",
@@ -225,17 +225,17 @@ export default {
         {
           minvalue: "0",
           maxvalue: "10",
-          color: "#FFD74D"
+          color: "#D7F14D"
         },
         {
           minvalue: "10",
           maxvalue: "13",
-          color: "#FB8C00"
+          color: "#8CEB00"
         },
         {
           minvalue: "13",
           maxvalue: "19",
-          color: "#E65100"
+          color: "#00D651"
         }
       ]
     },
