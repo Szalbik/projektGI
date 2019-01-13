@@ -1,4 +1,4 @@
-# Advanced Charts - Information Graphics
+# Advanced Charts - Information Graphics [![CircleCI](https://circleci.com/gh/Szalbik/projektGI.svg?style=svg)](https://circleci.com/gh/Szalbik/projektGI)
 
 > This application was created for purpose of egzamination on university.
 
