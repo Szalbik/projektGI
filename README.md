@@ -64,5 +64,5 @@ Created by [@Damian Szalbierz](https://github.com/Szalbik) and [@Wojciech Bełka
 
 ## Acknowledge
 
-- [Crops data source](https://gis.gov.pl)
+- [Crops data source](http://stat.gov.pl)
 - [Meteo data source](https://dane.imgw.pl/)
