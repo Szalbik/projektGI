@@ -47,7 +47,7 @@ class App extends Component {
                 // Source data as JSON --> id represents regions of Poland.
                 "data": [
                     { "id": "74", "value": Math.random()*1000, "label": "Łódzkie", "shortLabel": "LD" },
-                    { "id": "72", "value": Math.random()*1000, "label": "Dolnośląskie", "shortLabel": "DS", color: 'black' },
+                    { "id": "72", "value": YieldsDataLoader.avgOf("all", "dt/ha", "PL-DS"), "label": "Dolnośląskie", "shortLabel": "DS", color: 'black' },
                     { "id": "73", "value": Math.random()*1000, "label": "Kujawsko-Pomorskie", "shortLabel": "KP" },
                     { "id": "75", "value": Math.random()*1000, "label": "Lubelskie", "shortLabel": "LU" },
                     { "id": "76", "value": Math.random()*1000, "label": "Lubuskie", "shortLabel": "LB" },
@@ -70,10 +70,7 @@ class App extends Component {
 
     componentDidMount() {
         MeteoDataLoader.loadData().then(() => this.setState({ meteoLoaded: true }))
-        YieldsDataLoader.loadData().then((res) => {
-            this.setState({ yieldsLoaded: true })
-            console.log(res);
-        })
+        YieldsDataLoader.loadData().then(() => { this.setState({ yieldsLoaded: true }) })
     }
 
     toggleRegion = (event, args) => {
@@ -98,10 +95,14 @@ class App extends Component {
         }
     }
 
+    updateRegionsData = () => {
+        let { configCharts } = this.state;
+    }
+
     render() {
         const { meteoLoaded, yieldsLoaded, regions, configCharts } = this.state;
         if(meteoLoaded && yieldsLoaded) {
-            console.log(YieldsDataLoader.avgOf('all','dt/ha','PL-WP'));
+            console.log(YieldsDataLoader.avgOf("all", "dt/ha", "PL-DS"))
             return (
                 <div className="App">
                     <Map chartConfigs={configCharts} toggleRegion={this.toggleRegion} />
