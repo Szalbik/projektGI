@@ -22,12 +22,7 @@ class App extends Component {
 
     const { data } = this.state.configCharts.dataSource;
     const { items } = this.state.configCharts.dataSource.markers;
-    MeteoDataLoader.loadData()
-      .then(() => this.setState({ meteoLoaded: true }))
-      .then(() => {
-        console.log(new MeteoDataLoader().avgOf("temp", "all", "PL-DS", 1, 12));
-        console.log(new MeteoDataLoader().avgOf("temp", 2004, "PL-DS", 1, 12));
-      });
+    MeteoDataLoader.loadData().then(() => this.setState({ meteoLoaded: true }));
     YieldsDataLoader.loadData()
       .then(() => this.setState({ yieldsLoaded: true }))
       .then(() => {
@@ -40,24 +35,33 @@ class App extends Component {
         });
         let i = 0;
         for (var r in Regions) {
+          console.log(
+            "Opady:",
+            new MeteoDataLoader().avgOf("rainfall", "all", r, 3, 9)
+          );
+
           items[i] = {
             id: r + "_rainfall",
-            shapeid: "we-anchor",
+            shapeid: this.pickDropByAvg(
+              new MeteoDataLoader().avgOf("rainfall", "all", r, 3, 9)
+            ),
             x: Regions[r].x,
-            y: Regions[r].y - 10,
+            y: Regions[r].y - 5,
             label: r + "_rainfall",
-            value: new MeteoDataLoader().avgOf("rainfall", "all", r, 1, 12),
+            value: "",
             tooltext: "",
             labelpos: "bottom"
           };
           i++;
           items[i] = {
             id: r + "_temp",
-            shapeid: "aws-anchor",
+            shapeid: this.pickSunByAvg(
+              new MeteoDataLoader().avgOf("temp", "all", r, 3, 9)
+            ),
             x: Regions[r].x,
-            y: Regions[r].y + 15,
+            y: Regions[r].y + 20,
             label: r + "_temp",
-            value: new MeteoDataLoader().avgOf("temp", "all", r, 1, 12),
+            value: "",
             tooltext: "",
             labelpos: "bottom"
           };
@@ -71,6 +75,30 @@ class App extends Component {
         });
       });
   }
+
+  pickSunByAvg = avg => {
+    let result = "sun1";
+
+    if (avg >= 13) {
+      result = "sun3";
+    } else if (avg >= 11.5) {
+      result = "sun2";
+    }
+
+    return result;
+  };
+
+  pickDropByAvg = avg => {
+    let result = "drop3";
+
+    if (avg >= 55) {
+      result = "drop2";
+    } else if (avg >= 65) {
+      result = "drop3";
+    }
+
+    return result;
+  };
 
   toggleRegion = (event, args) => {
     const { regions } = this.state;

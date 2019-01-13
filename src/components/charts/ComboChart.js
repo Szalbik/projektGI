@@ -37,7 +37,7 @@ export default class ComboChart extends Component {
                 }
                 let p;
                 if (s.type === 'meteo') {
-                    p = new MeteoDataLoader().avgOf(s.value, year, s.region, 3, 9);
+                    p = new MeteoDataLoader().avgOf(s.value, +year, s.region, 3, 9);
                 }
                 else if (s.type === 'yield') {
                     p = YieldsDataLoader.single(year, s.value, 'dt/ha', s.region);
