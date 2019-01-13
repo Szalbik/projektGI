@@ -5,6 +5,96 @@ import MeteoDataLoader from "../utils/MeteoDataLoader";
 import "./App.css";
 import YieldsDataLoader from "../utils/YieldsDataLoader";
 
+const dataSource = {
+  chart: {
+    caption: "AWS Global Infrastructure",
+    subcaption: "Availability and coming soon locations",
+    showentitytooltip: "0",
+    showentityhovereffect: "0",
+    showmarkerlabels: "0",
+    markertooltext: "$label",
+    theme: "fusion",
+    nullentityfillcolor: "#90A4AE"
+  },
+  annotations: {
+    groups: [
+      {
+        id: "Av Item",
+        items: [
+          {
+            id: "Av",
+            type: "image",
+            url:
+              "https://cdn2.iconfinder.com/data/icons/gpsmapicons/orange/gpsmapicons02.png",
+            x: "20",
+            y: "500",
+            xscale: "30",
+            yscale: "25"
+          },
+          {
+            id: "cs",
+            type: "text",
+            text: "Region and {br}Number of Availibility Zones",
+            x: "60",
+            y: "515",
+            color: "000000",
+            align: "left"
+          }
+        ]
+      },
+      {
+        id: "user-images",
+        items: [
+          {
+            id: "Avi",
+            type: "text",
+            x: "60",
+            align: "left",
+            y: "475",
+            color: "000000",
+            text: "New Region {br} Coming soon"
+          },
+          {
+            id: "cs",
+            type: "image",
+            url:
+              "https://cdn2.iconfinder.com/data/icons/gpsmapicons/green/gpsmapicons05.png",
+            x: "20",
+            y: "460",
+            xscale: "30",
+            yscale: "25"
+          }
+        ]
+      }
+    ]
+  },
+  markers: {
+    items: [
+      {
+        id: "awsg",
+        shapeid: "we-anchor",
+        x: "100.14",
+        y: "150.9",
+        label: "AWS GOVCLOUD",
+        value: "2",
+        tooltext: "$label {br} Number of Availibility Zones: $value",
+        labelpos: "left"
+      }
+    ],
+    shapes: [
+      {
+        id: "we-anchor",
+        type: "image",
+        url:
+          "https://cdn2.iconfinder.com/data/icons/gpsmapicons/orange/gpsmapicons02.png",
+        xscale: "25",
+        yscale: "20",
+        labelpadding: "5"
+      }
+    ]
+  }
+};
+
 class App extends Component {
   state = {
     meteoLoaded: false,
@@ -19,10 +109,13 @@ class App extends Component {
         // Map Configuration
         chart: {
           caption: "Average Yield in Poland",
-          subcaption: " 2003-2016",
+          subcaption: "2003-2016",
           numbersuffix: "",
           includevalueinlabels: "1",
           labelsepchar: ": ",
+          showentitytooltip: "0",
+          showmarkerlabels: "0",
+          markertooltext: "$label",
           entityFillHoverColor: "#FFF9C4",
           theme: "fusion"
         },
@@ -150,6 +243,29 @@ class App extends Component {
             shortLabel: "SK"
           }
         ]
+      },
+      markers: {
+        items: [
+          {
+            id: "pol",
+            shapeid: "we-anchor",
+            x: "365.14",
+            y: "118.9",
+            label: "Poland",
+            value: "1",
+            tooltext: "In Poland, WeWork has <b>$value</b> co-working location"
+          }
+        ],
+        shapes: [
+          {
+            id: "we-anchor",
+            type: "image",
+            url:
+              "https://cdn3.iconfinder.com/data/icons/iconic-1/32/map_pin_fill-512.png",
+            xscale: "4",
+            yscale: "4"
+          }
+        ]
       }
     },
     regions: ["PL-WP", "PL-DS"]
@@ -181,6 +297,7 @@ class App extends Component {
   }
 
   toggleRegion = (event, args) => {
+    console.log(event);
     const { regions } = this.state;
     const { configCharts } = this.state;
     const { dataSource } = this.state.configCharts;
