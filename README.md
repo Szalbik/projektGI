@@ -12,6 +12,7 @@
 - [Status](#status)
 - [Inspiration](#inspiration)
 - [Contact](#contact)
+- [Acknowledge](#acknowledge)
 
 ## Screenshots
 
@@ -60,3 +61,8 @@ Project inspired by [@Jerzy Stefanowski](http://www.cs.put.poznan.pl/jstefanowsk
 ## Contact
 
 Created by [@Damian Szalbierz](https://github.com/Szalbik) and [@Wojciech Bełka](https://github.com/wbelka94) - feel free to contact us!
+
+## Acknowledge
+
+[Yields data source](https://gis.gov.pl)
+[Meteo data source](https://dane.imgw.pl/)
