@@ -64,5 +64,5 @@ Created by [@Damian Szalbierz](https://github.com/Szalbik) and [@Wojciech Bełka
 
 ## Acknowledge
 
-[Yields data source](https://gis.gov.pl)
-[Meteo data source](https://dane.imgw.pl/)
+- [Yields data source](https://gis.gov.pl)
+- [Meteo data source](https://dane.imgw.pl/)
