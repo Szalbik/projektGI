@@ -1,11 +1,10 @@
 import React, {Component} from "react";
-import {Chart} from 'react-google-charts'
+import { Chart } from 'react-google-charts'
 import YieldsDataLoader from '../../utils/YieldsDataLoader';
 import MeteoDataLoader from '../../utils/MeteoDataLoader';
-import Regions from '../../utils/Regions';
+// import Regions from '../../utils/Regions';
 
 export default class ComboChart extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +20,6 @@ export default class ComboChart extends Component {
             .then(v => this.setState({chartData: v}));
         this.setState({chartSeries: this.prepareSeries(props.series)});
     }
-
 
     async prepareData(series, range) {
         let chartColumns = [{"id": "year", "label": "Rok", "pattern": "", "type": "string"},];
@@ -39,9 +37,7 @@ export default class ComboChart extends Component {
                 }
                 let p;
                 if (s.type === 'meteo') {
-                    // console.log(s.value + ", " + year + ", " + s.region);
                     p = await new MeteoDataLoader().avgOf(s.value, year, s.region, 3, 9);
-                    // console.log(p);
                 }
                 else if (s.type === 'yield') {
                     p = await YieldsDataLoader.single(year, s.value, 'dt/ha', s.region);

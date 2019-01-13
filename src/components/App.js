@@ -11,8 +11,8 @@ class App extends Component {
         yieldsLoaded: false,
         configCharts: {
             type: 'maps/poland',
-            width: '800',
-            height: '550',
+            height: '30%',
+            width: '100%',
             dataFormat: 'json',
             dataSource: {
             // Map Configuration
@@ -78,7 +78,6 @@ class App extends Component {
 
     toggleRegion = (event, args) => {
         const { regions } = this.state;
-        // console.log(this.state.configCharts.dataSource);
         const { configCharts } = this.state;
         const { dataSource } = this.state.configCharts;
         const { data } = this.state.configCharts.dataSource;
